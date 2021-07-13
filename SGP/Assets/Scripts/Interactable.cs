@@ -14,45 +14,22 @@ public class Interactable : MonoBehaviour
     public UnityEvent interactAction;
     public bool destroyOnInteract;
 
-
-    public virtual void OnInteract()
-    {
-
-    }
-
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
 
         Gizmos.DrawWireSphere(transform.position, radius);
-
-
     }
 
-    void Update()
+
+    private void OnTriggerStay(Collider collision)
     {
-        if (isInRange)
+        if (Input.GetKeyDown(interactKey))
         {
-            if(Input.GetKeyDown(interactKey))
-            {
-                interactAction.Invoke();
+            interactAction.Invoke();
 
-                if(destroyOnInteract)
-                    Destroy(gameObject);
-            }
-        }
-    }
-
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.gameObject.CompareTag("Player")){
-            isInRange = true;
-        }
-    }
-    private void OnTriggerExit(Collider collision)
-    {
-        if (collision.gameObject.CompareTag("Player")){
-            isInRange = false;
+            if (destroyOnInteract)
+                Destroy(gameObject);
         }
     }
 }

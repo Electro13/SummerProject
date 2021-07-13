@@ -13,9 +13,12 @@ public class ThirdPersonMovement : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
+    public Animator animator;
+
 
     public bool isGrounded;
 
+    //Character Controller doesnt handle gravity - that is done here
     private void FixedUpdate()
     {
         RaycastHit hit;
@@ -48,6 +51,9 @@ public class ThirdPersonMovement : MonoBehaviour
 
 
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
-        }          
+        }
+
+        //Temporary animation controller
+        animator.SetFloat("speed", Mathf.Abs(vertical) + Mathf.Abs(horizontal));
     }
 }

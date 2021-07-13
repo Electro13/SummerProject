@@ -29,4 +29,15 @@ public class Player : MonoBehaviour
     {
         inventory.AddItem(id);
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKey("f"))
+        {
+            if (other.tag.Equals("NPC"))
+            {
+                other.GetComponent<DialogueTrigger>().TriggerDialogue();
+            }
+        }
+    }
 }
