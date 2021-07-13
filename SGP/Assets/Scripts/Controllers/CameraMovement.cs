@@ -15,11 +15,10 @@ public class CameraMovement : MonoBehaviour
 
         RaycastHit hit;//temp
         
-        if (Physics.Raycast(center.position, transform.position - center.position, out hit, (transform.position - center.position).magnitude))
+        if (Physics.Raycast(center.position, transform.position - center.position, out hit, ((transform.position - center.position).normalized * truePosition.z).magnitude))
         {
-            Vector3 forward = -(transform.position - center.position).normalized;
-            transform.position = hit.point + forward;
-            Debug.DrawRay(center.position, hit.point - center.position);
+            transform.position = hit.point;
+            Debug.DrawRay(center.position, hit.point - center.position, Color.blue);
         }
         else
         {
